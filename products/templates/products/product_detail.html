@@ -48,3 +48,32 @@
         </div>
     </div>
 {% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+
+<script type="text/javascript">
+    $('#sort.selector').change(function(){
+
+        var selector = $(this);
+        var currentUrl = new URL(window.location);
+
+        var selectedVal = selector.val();
+        if(selectedVal != 'reset'){
+            var sort = selectVal.split('_')[0]
+            var direction = selectVal.split('_')[1]
+
+            currentUrl.searchparams.set('sort', sort);
+            currentUrl.searchparams.set('direction', direction);
+
+            window.location.replace(currentUrl);
+        }else{
+            currentUrl.searchparams.delete('sort');
+            currentUrl.searchparams.delete('direction');
+
+            window.location.replace(currentUrl);
+
+        }
+    })
+</script>
+{% endblock %}
