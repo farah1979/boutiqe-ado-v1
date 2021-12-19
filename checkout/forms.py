@@ -1,13 +1,14 @@
-from django import froms
+from django import forms
 from .models import Order
 
-class OrderForm(froms, ModelForm):
+
+class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ('full_name', 'email', 'phone_number',
-                  'street_address1', 'street_address2', 'town_or_city'
-                  'postcode', 'country', 'county',)
-
+                  'street_address1', 'street_address2',
+                  'town_or_city', 'postcode', 'country',
+                  'county',)
 
     def __init__(self, *args, **kwargs):
         """
@@ -16,15 +17,15 @@ class OrderForm(froms, ModelForm):
         """
         super().__init__(*args, **kwargs)
         placeholders = {
-            'full_name': 'Full Name'
-            'email': 'Email'
-            'phone_number': 'Phone Number'
-            'street_address1': 'Street Address 1'
-            'street_address2': 'Street Address 2'
-            'town_or_city': 'Town or City'
-            'postcode': 'Postal Code'
-            'country': 'Country'
-            'county': 'County'
+            'full_name': 'Full Name',
+            'email': 'Email Address',
+            'phone_number': 'Phone Number',
+            'country': 'Country',
+            'postcode': 'Postal Code',
+            'town_or_city': 'Town or City',
+            'street_address1': 'Street Address 1',
+            'street_address2': 'Street Address 2',
+            'county': 'County',
         }
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
@@ -36,5 +37,3 @@ class OrderForm(froms, ModelForm):
             self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False
-
-
